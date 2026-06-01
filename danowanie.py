@@ -4,7 +4,7 @@ import pandas as pd
 # import requests
 
 
-def rookies_danowanie():
+def danowanie():
     ##
     seasons = ["2025-26", "2024-25"]
     measure_types_player = ["Base", "Advanced", "Usage", "Misc", "Scoring", "Defense"]
@@ -16,8 +16,7 @@ def rookies_danowanie():
             player_stats = leaguedashplayerstats.LeagueDashPlayerStats(
                 season=season,
                 per_mode_detailed="PerGame",
-                measure_type_detailed_defense=measure_type,
-                player_experience_nullable="Rookie"
+                measure_type_detailed_defense=measure_type
             ).get_data_frames()[0]
             players_stats.append(player_stats)
         df_players = pd.concat(
@@ -33,8 +32,7 @@ def rookies_danowanie():
         for measure_type in measure_type_team:
             team_stats = leaguedashteamstats.LeagueDashTeamStats(
                 season=season,
-                measure_type_detailed_defense=measure_type,
-                player_experience_nullable="Rookie"
+                measure_type_detailed_defense=measure_type
             ).get_data_frames()[0]
             teams_stats.append(team_stats)
         df_teams = pd.concat(
@@ -53,7 +51,7 @@ def rookies_danowanie():
         )
 
         voting = pd.read_csv(
-            "All-Rookie_Teams_" + season + ".csv"
+            "All-NBA_Teams_" + season + ".csv"
         )
         voting.columns = voting.iloc[0]
         # voting.columns = voting.columns.str.lstrip("0")
@@ -88,7 +86,7 @@ def rookies_danowanie():
     # print(dataset.head().to_string())
 
     dataset.to_csv(
-        "All-Rookie_Teams_dane.csv",
+        "All-NBA_Teams_dane.csv",
         index=False
     )
 
@@ -102,4 +100,4 @@ if __name__ == '__main__':
     #     'Referer': 'https://nba.com',
     # }
     # response = requests.get('https://stats.nba.com', timeout=60)
-    rookies_danowanie()
+    danowanie()

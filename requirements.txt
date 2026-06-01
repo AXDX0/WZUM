@@ -4,3 +4,4 @@ pandas-stubs
 scikit-learn
 mlflow
 nba_api
+joblib
